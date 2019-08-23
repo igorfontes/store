@@ -18,23 +18,27 @@ function mostraDados() {
     produto.nome = nome;
     produto.precounit = precounit;
     produto.estoque = estoque;
-  
-    if (typeof Storage !== "undefined") {
-      window.localStorage.setItem(id, JSON.stringify(produto));
+
+    if(window.localStorage.getItem(id)===null){
+      if (typeof Storage !== "undefined") {
+        window.localStorage.setItem(id, JSON.stringify(produto));
+      } else {
+        alert("No support for local storage!");
+      }
+    
+      alert(
+        " O produto " +
+          nome +
+          " com preco unitário de R$ " +
+          precounit +
+          " tem " +
+          estoque +
+          " unidades disponíveis! Lista de produtos com " +
+          localStorage.length
+      );
     } else {
-      alert("No support for local storage!");
+      alert("ID já cadastrado! Tente outro id!");
     }
-  
-    alert(
-      " O produto " +
-        nome +
-        " com preco unitário de R$ " +
-        precounit +
-        " tem " +
-        estoque +
-        " unidades disponíveis! Lista com " +
-        localStorage.length
-    );
   }
   
   function selectInfo(c, r) {
@@ -88,14 +92,18 @@ function mostraDados() {
   
   function removeProd() {
     var idout = document.getElementById("cIdOut").value;
-    window.localStorage.removeItem(idout);
-    alert(
-      " O produto com id " +
-        idout +
-        " foi removido com sucesso! Lista de produtos com " +
-        localStorage.length +
-        " produtos!"
-    );
+    if(window.localStorage.getItem(idout)===null){
+      alert("ID inexistente! Tente novamente!");
+    } else {
+      window.localStorage.removeItem(idout);
+      alert(
+        " O produto com id " +
+          idout +
+          " foi removido com sucesso! Lista de produtos com " +
+          localStorage.length +
+          " produtos!"
+      );
+    }
   }
   
   function editProd() {
@@ -111,19 +119,22 @@ function mostraDados() {
     produto.estoque = estoqueEdit;
   
     if (typeof Storage !== "undefined") {
+      if(window.localStorage.getItem(idEdit)===null){
+        alert("ID inexistente! Tente novamente!");
+      } else {
       window.localStorage.removeItem(idEdit);
       window.localStorage.setItem(idEdit, JSON.stringify(produto));
+      alert(
+        " O produto com id " +
+          idEdit +
+          " foi editado com sucesso! Lista de produtos com " +
+          localStorage.length +
+          " produtos!"
+      );
+      }
     } else {
       alert("No support for local storage!");
     }
-  
-    alert(
-      " O produto com id " +
-        idEdit +
-        " foi editado com sucesso! Lista de produtos com " +
-        localStorage.length +
-        " produtos!"
-    );
   }
   
   function efetuaCompra() {
@@ -132,18 +143,22 @@ function mostraDados() {
     var produto = new Object();
     produto = JSON.parse(window.localStorage.getItem(idComp));
     var aux = JSON.parse(window.localStorage.getItem(idComp)).estoque;
+    if(window.localStorage.getItem(idComp)===null){
+      alert("Produto com ID inexistente! Verifique a lista de produtos!");
+    } else {
     if (aux < qtde) {
       alert("Desculpe! Estoque insuficiente! Temos apenas " + aux + " unidades disponíveis!");
     } else {
       produto.estoque = aux - qtde;
-      alert("Compra finalizada com sucesso! Obrigado pela preferência!");
       if (typeof Storage !== "undefined") {
         window.localStorage.setItem(idComp, JSON.stringify(produto));
       } else {
         alert("No support for local storage!");
       }
+      alert("Compra finalizada com sucesso! Obrigado pela preferência!");
     }
   }
+}
 
   function calc_preco(){
     var idComp = document.getElementById("cIdComp").value;
