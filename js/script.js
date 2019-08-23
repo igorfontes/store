@@ -1,3 +1,12 @@
+function HideIt(IdHide) {
+  var x = document.getElementById(IdHide);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
 function mostraDados() {
     var id = document.getElementById("cId").value;
     var nome = document.getElementById("cNome").value;
@@ -123,10 +132,11 @@ function mostraDados() {
     var produto = new Object();
     produto = JSON.parse(window.localStorage.getItem(idComp));
     var aux = JSON.parse(window.localStorage.getItem(idComp)).estoque;
-    if (aux == 0) {
-      alert("Desculpe! Estoque esgotado!");
+    if (aux < qtde) {
+      alert("Desculpe! Estoque insuficiente! Temos apenas " + aux + " unidades disponíveis!");
     } else {
       produto.estoque = aux - qtde;
+      alert("Compra finalizada com sucesso! Obrigado pela preferência!");
       if (typeof Storage !== "undefined") {
         window.localStorage.setItem(idComp, JSON.stringify(produto));
       } else {
@@ -134,39 +144,48 @@ function mostraDados() {
       }
     }
   }
-  
-  function hideCadastro() {
-    var x = document.getElementById("formProd");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
+
+  function calc_preco(){
+    var idComp = document.getElementById("cIdComp").value;
+    var qtde = document.getElementById("cQtde").value;
+    var aux = JSON.parse(window.localStorage.getItem(idComp)).precounit;
+    tot = qtde * aux;
+    document.getElementById("cTot").value = 
+    tot.toFixed(2);
   }
   
-  function hideRemove() {
-    var x = document.getElementById("remove");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-  }
+  // function hideCadastro() {
+  //   var x = document.getElementById("formProd");
+  //   if (x.style.display === "none") {
+  //     x.style.display = "block";
+  //   } else {
+  //     x.style.display = "none";
+  //   }
+  // }
   
-  function hideEdicao() {
-    var x = document.getElementById("edicao");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-  }
+  // function hideRemove() {
+  //   var x = document.getElementById("remove");
+  //   if (x.style.display === "none") {
+  //     x.style.display = "block";
+  //   } else {
+  //     x.style.display = "none";
+  //   }
+  // }
   
-  function hideCompras() {
-    var x = document.getElementById("compra");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-  }
+  // function hideEdicao() {
+  //   var x = document.getElementById("edicao");
+  //   if (x.style.display === "none") {
+  //     x.style.display = "block";
+  //   } else {
+  //     x.style.display = "none";
+  //   }
+  // }
+  
+  // function hideCompras() {
+  //   var x = document.getElementById("compra");
+  //   if (x.style.display === "none") {
+  //     x.style.display = "block";
+  //   } else {
+  //     x.style.display = "none";
+  //   }
+  // }
