@@ -9,7 +9,7 @@
     </head>
     <body id="body">
       <img src="./img/buynow.png" id="logo" />
-      <h1>Bem-vindo à sua loja virtual!</h1>
+      <h1>BEM-VINDO À SUA LOJA VIRTUAL!</h1>
   
       <center>
         <table cellspacing="0" cellpadding="0" id="tableProd"></table>
@@ -82,7 +82,7 @@
             </p>
             <p>
               <label for="cTot">Valor a pagar: R$ </label>
-              <input type="text" name="tTot" id="cTot" placeholder="Total a pagar" readonly>
+              <input type="number" name="tTot" id="cTot" placeholder="Total a pagar" readonly>
             </p>
           </fieldset>
   
@@ -139,20 +139,20 @@
       </center>
   
       <center>
-        <button class="butshowAll" onclick="listaProdutos()">
+        <button class="butshowAll" onclick="listaProdutos();">
           Conheça nossos produtos
         </button>
   
-        <button id="bCad" onclick="HideIt('formProd')">
+        <button id="bCad" onclick="window.HideIt('formProd'); window.HideExcept('formProd');">
           Cadastre seu produto
         </button>
-        <button id="bRem" onclick="HideIt('remove')">
+        <button id="bRem" onclick="window.HideIt('remove'); window.HideExcept('remove');">
           Remova seu produto
         </button>
-        <button id="bEd" onclick="HideIt('edicao')">
+        <button id="bEd" onclick="window.HideIt('edicao'); window.HideExcept('edicao');">
           Edite seu produto
         </button>
-        <button id="bCo" onclick="HideIt('compra')">
+        <button id="bCo" onclick="window.HideIt('compra'); window.HideExcept('compra');">
           Compre já
         </button>
       </center>
